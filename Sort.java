@@ -69,6 +69,47 @@ public class Sort
 	private static <T extends Comparable<T>> void mergesort(IndexedUnsortedList<T> list)
 	{
 		// TODO: Implement recursive mergesort algorithm 
+		// System.out.print(list.toString());
+		if (list.size() > 1) {
+			IndexedUnsortedList<T> leftList = newList();
+			IndexedUnsortedList<T> rightList = newList();
+			int middle = list.size() / 2;
+
+			for ( int i = 0; i < middle; i++) {
+				leftList.add(list.first());
+				list.add(list.first());
+				list.removeFirst();
+				mergesort(leftList);
+			}
+			for ( int i = middle; i < list.size(); i++) {
+				rightList.add(list.first());
+				list.add(list.first());
+				list.removeFirst();
+				mergesort(rightList);
+			}
+
+			while (!leftList.isEmpty() && !rightList.isEmpty()) {
+				if (leftList.first().compareTo(rightList.first()) > 0) {
+					list.add(rightList.removeFirst());
+				} else {
+					list.add(leftList.removeFirst());
+					list.add(rightList.removeFirst());
+				}
+			}
+
+			while (!leftList.isEmpty()) {
+				list.add(leftList.removeFirst());
+			}
+
+			while (!rightList.isEmpty()) {
+				list.add(rightList.removeFirst());
+			}
+		}
+
+		//base case 
+		
+
+		//recursive case
 	}
 		
 	/**
